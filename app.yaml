@@ -1,0 +1,21 @@
+application: liftmo-1056
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /javascript
+  static_dir: javascript
+
+- url: /html
+  static_dir: html
+
+- url: /.*
+  script: index.html
+
+- url: /api
+  script: index.php
