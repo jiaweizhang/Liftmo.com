@@ -30,7 +30,7 @@ Backend for JSON Web API used by Liftmo Android app.
 
 ## About
 
-Written by Jiawei Zhang
+Written by (Jiawei Zhang)[https://github.com/jiaweizhang]
 
 ## Libraries
 
