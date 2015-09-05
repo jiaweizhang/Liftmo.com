@@ -11,7 +11,10 @@ handlers:
 #- url: /api
 #  static_dir: api
 
-- url: /api.*
+#- url: /api.*
+#  script: api/index.php
+
+- url: /api/.*
   script: api/index.php
 
 - url: /.*
