@@ -16,9 +16,9 @@ handlers:
 
 #- url: /(.+\.php)
 #  script: api.php
-
 - url: /api.*
-  script: index.php
+  script: home.html
 
 - url: /.*
-  script: home.html
+  script: index.php
+
