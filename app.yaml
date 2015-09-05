@@ -5,8 +5,8 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /.*
-  script: index.php
+- url: /api.*
+  script: SlimStuff/index.php
 
 - url: /stylesheets
   static_dir: stylesheets
@@ -16,9 +16,6 @@ handlers:
 
 - url: /html
   static_dir: html
-
-- url: /api.*
-  script: api.php
 
 #- url: /(.+\.php)
 #  script: api.php
