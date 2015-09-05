@@ -8,11 +8,11 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
-- url: /test.*
-  script: test/test.php
+#- url: /api
+#  static_dir: api
 
 - url: /api.*
-  script: index.php
+  script: api/index.php
 
 - url: /.*
   script: home.html
