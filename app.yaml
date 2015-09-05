@@ -8,17 +8,12 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
-- url: /javascript
-  static_dir: javascript
+- url: /test.*
+  script: test/test.php
 
-- url: /html
-  static_dir: html
-
-#- url: /(.+\.php)
-#  script: api.php
 - url: /api.*
-  script: home.html
+  script: index.php
 
 - url: /.*
-  script: index.php
+  script: home.html
 
