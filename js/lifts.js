@@ -62,9 +62,9 @@ app.controller('myController', function($scope, $http, $modal) {
 
 	$scope.init = function() {
 		$scope.status = "Everything working.";
-		/*$http.get("http://liftmo.com/api/lifts").success(function(response) {
+		$http.get("http://liftmo.com/api/lifts").success(function(response) {
 			$scope.lifts = response.lifts;
-		});*/
+		});
 	}
 
 	$scope.init();
