@@ -127,38 +127,38 @@ Backend for JSON Web API used by Liftmo Android app.
 	<tbody>
 		<tr>
 			<td>id</td>
-			<td></td>
-			<td></td>
+			<td>int</td>
+			<td>20</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>name</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>nickname</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>description</td>
-			<td></td>
+			<td>medium text</td>
 			<td></td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>videourl</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>parentid</td>
-			<td></td>
-			<td></td>
+			<td>parentname</td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 	</tbody>
