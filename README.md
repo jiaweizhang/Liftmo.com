@@ -112,7 +112,7 @@ Backend for JSON Web API used by Liftmo Android app.
 			<td>/maxes</td>
 			<td>POST</td>
 			<td>(usersid, liftid, amt, reps)</td>
-			<td>Creates new max for a user</td>
+			<td>Adds new max for a user</td>
 		</tr>
 		<tr>
 			<td>/maxes</td>
@@ -124,7 +124,7 @@ Backend for JSON Web API used by Liftmo Android app.
 			<td>/maxes</td>
 			<td>PUT</td>
 			<td>(usersid, liftid, amt, reps)</td>
-			<td>Updates max for a user</td>
+			<td>Edits incorrect max for a user</td>
 		</tr>
 	</tbody>
 </table>
@@ -183,7 +183,7 @@ Backend for JSON Web API used by Liftmo Android app.
 			<td></td>
 		</tr>
 		<tr>
-			<td>createdat</td>
+			<td>createdate</td>
 			<td></td>
 			<td></td>
 			<td></td>
