@@ -1,1 +1,5 @@
 api/include/Config.php
+.buildpath
+.metadata/
+.project
+.settings/

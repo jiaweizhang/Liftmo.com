@@ -104,10 +104,10 @@ $app->post('/lifts', function() use ($app) {
  * Fetch lift
  * url - /lifts
  * method - GET
- * params - (name)
+ * params - [name]
  */
 $app->get( '/lifts', function () use ($app) {
-    echo 'Fetch lift';
+    echo 'Fetch lift if name is not null. Else fetch all lifts';
 });
 
 /**

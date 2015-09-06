@@ -5,14 +5,17 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /stylesheets
-  static_dir: stylesheets
+- url: /js
+  static_dir: js
 
 #- url: /api
 #  static_dir: api
 
 #- url: /api.*
 #  script: api/index.php
+
+- url: /dev/lifts
+  script: /dev/lifts.html
 
 - url: /api/.*
   script: api/index.php
