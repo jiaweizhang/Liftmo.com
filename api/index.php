@@ -36,74 +36,14 @@ $user_id = NULL;
  */
 
 // GET route
-$app->get(
-    '/',
-    function () {
-        $template = <<<EOT
-<!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8"/>
-            <title>Slim Framework for PHP 5</title>
-        </head>
-        <body>
-            <h1>Welcome to Slim!</h1>
-            <p>
-                Congratulations! Your Slim application is running. If this is
-                your first time using Slim, start with this <a href="http://docs.slimframework.com/#Hello-World" target="_blank">"Hello World" Tutorial</a>.
-            </p>
-        </body>
-    </html>
-EOT;
-        echo $template;
-    }
-);
-
-/**
- * User Registration
- * url - /register
- * method - POST
- * params - name, email, password
- */
-$app->post('/register', function() use ($app) {
-    echo 'POST ME UP';
-            // check for required params
-            /*verifyRequiredParams(array('name', 'email', 'password'));
-
-            $response = array();
-
-            // reading post params
-            $name = $app->request->post('name');
-            $email = $app->request->post('email');
-            $password = $app->request->post('password');
-
-            // validating email address
-            validateEmail($email);
-
-            $db = new DbHandler();
-            $res = $db->createUser($name, $email, $password);
-
-            if ($res == USER_CREATED_SUCCESSFULLY) {
-                $response["error"] = false;
-                $response["message"] = "You are successfully registered";
-            } else if ($res == USER_CREATE_FAILED) {
-                $response["error"] = true;
-                $response["message"] = "Oops! An error occurred while registereing";
-            } else if ($res == USER_ALREADY_EXISTED) {
-                $response["error"] = true;
-                $response["message"] = "Sorry, this email already existed";
-            }
-            // echo json response
-            echoRespnse(201, $response);*/
-        });
+$app->get)( '/', function () {
+    echo 'This is a GET route';
+});
 
 // PUT route
-$app->put(
-    '/put',
-    function () {
-        echo 'This is a PUT route';
-    }
-);
+$app->put( '/put', function () {
+    echo 'This is a PUT route';
+});
 
 // PATCH route
 $app->patch('/patch', function () {
@@ -111,12 +51,209 @@ $app->patch('/patch', function () {
 });
 
 // DELETE route
-$app->delete(
-    '/delete',
-    function () {
-        echo 'This is a DELETE route';
-    }
-);
+$app->delete('/delete', function () {
+    echo 'This is a DELETE route';
+});
+
+/**
+ * User Registration
+ * url - /register
+ * method - POST
+ * params - (email), fname, lname, password
+ */
+$app->post('/register', function() use ($app) {
+    echo 'User registration';
+});
+
+/**
+ * User Update
+ * url - /register
+ * method - PUT
+ * params - (email), [fname, lname, password, unit] 
+ */
+$app->put('/register', function() use ($app) {
+    echo 'Update user info';
+});
+
+/**
+ * User Login
+ * url - /login
+ * method - POST
+ * params - (email, password)
+ */
+$app->post('/login', function() use ($app) {
+    echo 'User login';
+});
+
+/**
+ * Create new lift
+ * url - /lifts
+ * method - POST
+ * params - (name), description, [altname]
+ */
+$app->post('/lifts', function() use ($app) {
+    echo 'Create new lift';
+});
+
+/**
+ * Fetch lift
+ * url - /lifts
+ * method - GET
+ * params - (name)
+ */
+$app->get( '/lifts', function () use ($app) {
+    echo 'Fetch lift';
+});
+
+/**
+ * Update lift
+ * url - /lifts
+ * method - PUT
+ * params - (name), description, [altname]
+ */
+$app->put('/lifts', function() use ($app) {
+    echo 'Update lift';
+});
+
+/**
+ * Delete lift (minimal)
+ * url - /lifts
+ * method - DELETE
+ * params - (name)
+ */
+$app->delete('/lifts', function () {
+    echo 'Delete lift';
+});
+
+/**
+ * Create new workout
+ * url - /workout
+ * method - POST
+ * params - (uniqueid), id, users.fname, users.lname, description, delay
+ */
+$app->post('/workouts', function() use ($app) {
+    echo 'Create new workout';
+});
+
+/**
+ * Fetch workout
+ * url - /workouts
+ * method - GET
+ * params - (uniqueid)
+ */
+$app->get( '/workouts', function () use ($app) {
+    echo 'Fetch workout';
+});
+
+/**
+ * Update workout
+ * url - /workouts
+ * method - PUT
+ * params - (uniqueid), id, users.fname, users.lname, description, delay
+ */
+$app->put('/workouts', function() use ($app) {
+    echo 'Update workout';
+});
+
+/**
+ * Delete workout along with all its lifts
+ * url - /workouts
+ * method - DELETE
+ * params - (uniqueid)
+ */
+$app->delete('/workouts', function () {
+    echo 'Delete workouts along with all its lifts';
+});
+
+/**
+ * Adds new lift within a workout
+ * url - /workoutlifts
+ * method - POST
+ * params - (workouts.uniqueid, num), lifts.name, reps, ss
+ */
+$app->post('/workoutlifts', function() use ($app) {
+    echo 'Adds new lift within a workout';
+});
+
+/**
+ * Gets lift(s) from a workout
+ * url - /workoutlifts
+ * method - GET
+ * params - (workouts.uniqueid, num)
+ */
+$app->get( '/workoutlifts', function () use ($app) {
+    echo 'Fetch lift(s) from a workout. If num is null, fetch all';
+});
+
+/**
+ * Create new user lift
+ * url - /userlifts
+ * method - POST
+ * params - (users.id), lifts.name, reps, weight, [success, ss]
+ */
+$app->post('/userlifts', function() use ($app) {
+    echo 'Create new user lift';
+});
+
+/**
+ * Gets user lifts in a date range
+ * url - /userlifts
+ * method - GET
+ * params - (users.id), [date range]
+ */
+$app->get( '/userlifts', function () use ($app) {
+    echo 'Gets user lifts in a date range';
+});
+
+/**
+ * Update user lift
+ * url - /userlifts
+ * method - PUT
+ * params - (user.id), lifts.name, reps, weight, [success, ss]
+ */
+$app->put('/userlifts', function() use ($app) {
+    echo 'Updates user lift';
+});
+
+/**
+ * Delete user lift
+ * url - /userlifts
+ * method - DELETE
+ * params - (id)
+ */
+$app->delete('/userlifts', function () {
+    echo 'Removes user lift';
+});
+
+/**
+ * Create new max for user
+ * url - /maxes
+ * method - POST
+ * params - (users.id, lifts.name, weight, reps)
+ */
+$app->post('/maxes', function() use ($app) {
+    echo 'Creates new max for a user';
+});
+
+/**
+ * Get all maxes for user
+ * url - /maxes
+ * method - PUT
+ * params - (users.id)
+ */
+$app->put('/maxes', function() use ($app) {
+    echo 'Get all maxes for user';
+});
+
+/**
+ * Update max for user
+ * url - /maxes
+ * method - PUT
+ * params - (users.id, lifts.name, weight, reps)
+ */
+$app->put('/maxes', function() use ($app) {
+    echo 'Updates max for user';
+});
 
 /**
  * Step 4: Run the Slim application
