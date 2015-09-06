@@ -13,9 +13,14 @@ class DbHandler {
 
     function __construct() {
         require_once dirname(__FILE__) . '/DbConnect.php';
+        //require_once 'DbConnect.php';
         // opening db connection
         $db = new DbConnect();
         $this->conn = $db->connect();
+    }
+    
+    public function doThis() {
+    	return "apples4 ";
     }
 
     /* ------------- `users` table method ------------------ */
@@ -47,24 +52,33 @@ class DbHandler {
      * @param none
      */
     public function getLifts() {
+    	//echo "banana1 ";
         $stmt = $this->conn->prepare("SELECT * from lifts");
-        if ($stmt->execute()) {
-            $res = array();
-            $stmt->bind_result($id, $name, $nickname, $videourl, $parentname);
+        //echo "banana2 ";
+        $stmt->execute();
+        $lifts = $stmt->get_result();
+        $stmt->close();
+        return $lifts;
+        //if ($stmt->execute()) {
+        	//echo "banana3 "; 
+            //$res = array();
+            //$stmt->bind_result($id, $name, $nickname, $videourl, $parentname);
             // TODO
-            $lifts = $stmt->get_result()->fetch_assoc();
-            /*$stmt->fetch();
-            $res["id"] = $id;
-            $res["name"] = $name;
-            $res["nickname"] = $nickname;
-            $res["videourl"] = $videourl;
-            $res["parentname"] = $parentname;*/
-            $stmt->close();
-            /*return $res;*/
+            //$lifts = $stmt->get_result()->fetch_assoc();
+            // $stmt->fetch();
+            //$res["id"] = $id;
+            //$res["name"] = $name;
+            //$res["nickname"] = $nickname;
+            //$res["videourl"] = $videourl;
+            //$res["parentname"] = $parentname; 
+            //$stmt->close();
+            /*return $res;
+            //echo "about to return lifts";
             return $lifts;
         } else {
+        	//echo "banana4 ";
             return NULL;
-        }
+        }*/
     }
 }
 

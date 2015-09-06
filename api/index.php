@@ -125,7 +125,7 @@ $app->post ( '/lifts', function () use($app) {
 	} else {
 		$response ["error"] = true;
 		$response ["message"] = "Oops! An error occurred while adding lift";
-	} 
+	}
 	// echo json response
 	echoRespnse ( 201, $response );
 } );
@@ -137,25 +137,28 @@ $app->post ( '/lifts', function () use($app) {
  * params - (none)
  */
 $app->get ( '/lifts', function () use($app) {
-	echo 'Fetch lift if name is not null. Else fetch all lifts';
+	// echo 'Fetch lift if name is not null. Else fetch all lifts';
 	$db = new DbHandler ();
 	
-	// fetch task
+	// fetching all user tasks
 	$result = $db->getLifts();
 	
-	if ($result != NULL) {
-		$response ["error"] = false;
-		$response ["id"] = $result ["id"];
-		$response ["name"] = $result ["name"];
-		$response ["nickname"] = $result ["nickname"];
-		$response ["videourl"] = $result ["videourl"];
-		$response ["parentname"] = $result ["parentname"];
-		echoRespnse ( 200, $response );
-	} else {
-		$response ["error"] = true;
-		$response ["message"] = "The requested resource doesn't exists";
-		echoRespnse ( 404, $response );
+	$response ["error"] = false;
+	$response ["lifts"] = array ();
+	
+	// looping through result and preparing tasks array
+	while ( $lift = $result->fetch_assoc () ) {
+		$tmp = array ();
+		$tmp ["id"] = $lift ["id"];
+		$tmp ["name"] = $lift ["name"];
+		$tmp ["nickname"] = $lift ["nickname"];
+		$tmp ["description"] = $lift ["description"];
+		$tmp ["videourl"] = $lift ["videourl"];
+		$tmp ["parentname"] = $lift ["parentname"];
+		array_push ( $response ["lifts"], $tmp );
 	}
+	
+	echoRespnse(200, $response);
 } );
 
 /**
