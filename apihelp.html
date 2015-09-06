@@ -54,19 +54,19 @@
 			<tr>
 				<td>/lifts</td>
 				<td>GET</td>
-				<td>[name])</td>
+				<td>[id]</td>
 				<td>Fetch lift</td>
 			</tr>
 			<tr>
 				<td>/lifts</td>
 				<td>PUT</td>
-				<td>(name), description, [altname]</td>
+				<td>(id), name, description, [altname]</td>
 				<td>Update lift</td>
 			</tr>
 			<tr>
 				<td>/lifts</td>
 				<td>DELETE</td>
-				<td>(name)</td>
+				<td>(id)</td>
 				<td>Delete lift (should not be used)</td>
 			</tr>
 			<tr>
@@ -98,7 +98,7 @@
 			<tr>
 				<td>/workoutlifts</td>
 				<td>POST</td>
-				<td>(workouts.uniqueid, num), lifts.name, reps, ss</td>
+				<td>(workouts.uniqueid, num), lifts.id, reps, ss</td>
 				<td>Add new lift within a workout</td>
 			</tr>
 			<tr>
@@ -116,7 +116,7 @@
 			<tr>
 				<td>/userlifts</td>
 				<td>POST</td>
-				<td>(users.id), lifts.name, reps, weight, [success, ss]</td>
+				<td>(users.id), lifts.id, reps, weight, [success, ss]</td>
 				<td>Create new user lift</td>
 			</tr>
 			<tr>
@@ -128,7 +128,7 @@
 			<tr>
 				<td>/userlifts</td>
 				<td>PUT</td>
-				<td>(user.id), lifts.name, reps, weight, [success, ss]</td>
+				<td>(user.id), lifts.id, reps, weight, [success, ss]</td>
 				<td>Update user lift</td>
 			</tr>
 			<tr>
@@ -140,7 +140,7 @@
 			<tr>
 				<td>/maxes</td>
 				<td>POST</td>
-				<td>(users.id, lifts.name, weight, reps)</td>
+				<td>(users.id, lifts.id, weight, reps)</td>
 				<td>Creates new max for a user</td>
 			</tr>
 			<tr>
@@ -152,7 +152,7 @@
 			<tr>
 				<td>/maxes</td>
 				<td>PUT</td>
-				<td>(users.id, lifts.name, weight, reps)</td>
+				<td>(users.id, lifts.id, weight, reps)</td>
 				<td>Updates max for a user</td>
 			</tr>
 		</tbody>

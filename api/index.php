@@ -104,7 +104,7 @@ $app->post('/lifts', function() use ($app) {
  * Fetch lift
  * url - /lifts
  * method - GET
- * params - [name]
+ * params - [id]
  */
 $app->get( '/lifts', function () use ($app) {
     echo 'Fetch lift if name is not null. Else fetch all lifts';
@@ -114,7 +114,7 @@ $app->get( '/lifts', function () use ($app) {
  * Update lift
  * url - /lifts
  * method - PUT
- * params - (name), description, [altname]
+ * params - (id), name, description, [altname]
  */
 $app->put('/lifts', function() use ($app) {
     echo 'Update lift';
@@ -124,7 +124,7 @@ $app->put('/lifts', function() use ($app) {
  * Delete lift (minimal)
  * url - /lifts
  * method - DELETE
- * params - (name)
+ * params - (id)
  */
 $app->delete('/lifts', function () {
     echo 'Delete lift';
@@ -174,7 +174,7 @@ $app->delete('/workouts', function () {
  * Adds new lift within a workout
  * url - /workoutlifts
  * method - POST
- * params - (workouts.uniqueid, num), lifts.name, reps, ss
+ * params - (workouts.uniqueid, num), lifts.id, reps, ss
  */
 $app->post('/workoutlifts', function() use ($app) {
     echo 'Adds new lift within a workout';
@@ -194,7 +194,7 @@ $app->get( '/workoutlifts', function () use ($app) {
  * Create new user lift
  * url - /userlifts
  * method - POST
- * params - (users.id), lifts.name, reps, weight, [success, ss]
+ * params - (users.id), lifts.id, reps, weight, [success, ss]
  */
 $app->post('/userlifts', function() use ($app) {
     echo 'Create new user lift';
@@ -214,7 +214,7 @@ $app->get( '/userlifts', function () use ($app) {
  * Update user lift
  * url - /userlifts
  * method - PUT
- * params - (user.id), lifts.name, reps, weight, [success, ss]
+ * params - (user.id), lifts.id, reps, weight, [success, ss]
  */
 $app->put('/userlifts', function() use ($app) {
     echo 'Updates user lift';
@@ -234,7 +234,7 @@ $app->delete('/userlifts', function () {
  * Create new max for user
  * url - /maxes
  * method - POST
- * params - (users.id, lifts.name, weight, reps)
+ * params - (users.id, lifts.id, weight, reps)
  */
 $app->post('/maxes', function() use ($app) {
     echo 'Creates new max for a user';
@@ -254,7 +254,7 @@ $app->get('/maxes', function() use ($app) {
  * Update max for user
  * url - /maxes
  * method - PUT
- * params - (users.id, lifts.name, weight, reps)
+ * params - (users.id, lifts.id, weight, reps)
  */
 $app->put('/maxes', function() use ($app) {
     echo 'Updates max for user';
