@@ -91,50 +91,10 @@ $app->post ( '/login', function () use($app) {
 } );
 
 /**
- * Create new lift
- * url - /lifts
- * method - POST
- * params - (name), nickname, description, videourl, parentname
- */
-$app->post ( '/lifts', function () use($app) {
-	echo 'Create new lift';
-	// check for required params
-	verifyRequiredParams ( array (
-			'name',
-			'nickname',
-			'description',
-			'videourl',
-			'parentname' 
-	) );
-	
-	$response = array ();
-	
-	// reading post params
-	$name = $app->request->post ( 'name' );
-	$nickname = $app->request->post ( 'nickname' );
-	$description = $app->request->post ( 'description' );
-	$videourl = $app->request->post ( 'videourl' );
-	$parentname = $app->request->post ( 'parentname' );
-	
-	$db = new DbHandler ();
-	$res = $db->createLift ( $name, $nickname, $description, $videourl, $parentname );
-	
-	if ($res) {
-		$response ["error"] = false;
-		$response ["message"] = "You are successfully registered";
-	} else {
-		$response ["error"] = true;
-		$response ["message"] = "Oops! An error occurred while adding lift";
-	}
-	// echo json response
-	echoRespnse ( 201, $response );
-} );
-
-/**
  * Fetch lift
  * url - /lifts
  * method - GET
- * params - (none)
+ * params - none
  */
 $app->get ( '/lifts', function () use($app) {
 	// echo 'Fetch lift if name is not null. Else fetch all lifts';
@@ -157,28 +117,7 @@ $app->get ( '/lifts', function () use($app) {
 		$tmp ["parentname"] = $lift ["parentname"];
 		array_push ( $response ["lifts"], $tmp );
 	}
-	
 	echoRespnse(200, $response);
-} );
-
-/**
- * Update lift
- * url - /lifts
- * method - PUT
- * params - (id), name, description, [altname]
- */
-$app->put ( '/lifts', function () use($app) {
-	echo 'Update lift';
-} );
-
-/**
- * Delete lift (minimal)
- * url - /lifts
- * method - DELETE
- * params - (id)
- */
-$app->delete ( '/lifts', function () {
-	echo 'Delete lift';
 } );
 
 /**
@@ -232,13 +171,13 @@ $app->post ( '/workoutlifts', function () use($app) {
 } );
 
 /**
- * Gets lift(s) from a workout
+ * Gets lifts from a workout
  * url - /workoutlifts
  * method - GET
  * params - (workouts.uniqueid, num)
  */
 $app->get ( '/workoutlifts', function () use($app) {
-	echo 'Fetch lift(s) from a workout. If num is null, fetch all';
+	echo 'Fetch lifts from a workout';
 } );
 
 /**

@@ -30,13 +30,13 @@
 			<tr>
 				<td>/register</td>
 				<td>POST</td>
-				<td>(email), fname, lname, password</td>
+				<td>(email, password)</td>
 				<td>New user registration</td>
 			</tr>
 			<tr>
 				<td>/register</td>
 				<td>PUT</td>
-				<td>(email), [fname, lname, password, unit]</td>
+				<td>(email), [fname, lname, password, unit, city, state, country]</td>
 				<td>Update user info</td>
 			</tr>
 			<tr>
@@ -47,88 +47,62 @@
 			</tr>
 			<tr>
 				<td>/lifts</td>
-				<td>POST</td>
-				<td>(name), description, [altname]</td>
-				<td>Create new lift</td>
-			</tr>
-			<tr>
-				<td>/lifts</td>
 				<td>GET</td>
-				<td>[id]</td>
-				<td>Fetch lift</td>
-			</tr>
-			<tr>
-				<td>/lifts</td>
-				<td>PUT</td>
-				<td>(id), name, description, [altname]</td>
-				<td>Update lift</td>
-			</tr>
-			<tr>
-				<td>/lifts</td>
-				<td>DELETE</td>
-				<td>(id)</td>
-				<td>Delete lift (should not be used)</td>
+				<td>none</td>
+				<td>Fetch all lifts</td>
 			</tr>
 			<tr>
 				<td>/workouts</td>
 				<td>POST</td>
-				<td>(uniqueid), id, users.fname, users.lname, description,
-					delay</td>
+				<td>name, description, authorfname, authorlname</td>
 				<td>Create new workout</td>
 			</tr>
 			<tr>
 				<td>/workouts</td>
 				<td>GET</td>
-				<td>(uniqueid)</td>
+				<td>(id)</td>
 				<td>Fetch workout</td>
 			</tr>
 			<tr>
 				<td>/workouts</td>
 				<td>PUT</td>
-				<td>(uniqueid), id, users.fname, users.lname, description,
-					delay</td>
+				<td>(id), name, description, authorfname, authorlname</td>
 				<td>Update workout</td>
 			</tr>
 			<tr>
 				<td>/workouts</td>
 				<td>DELETE</td>
-				<td>(uniqueid)</td>
+				<td>(id)</td>
 				<td>Delete a workout along with all its lifts</td>
 			</tr>
 			<tr>
 				<td>/workoutlifts</td>
 				<td>POST</td>
-				<td>(workouts.uniqueid, num), lifts.id, reps, ss</td>
+				<td>(workoutid, liftnum), liftsid, reps, amt</td>
 				<td>Add new lift within a workout</td>
 			</tr>
 			<tr>
 				<td>/workoutlifts</td>
 				<td>GET</td>
-				<td>(workouts.uniqueid, num)</td>
-				<td>Get lift from a workout</td>
-			</tr>
-			<tr>
-				<td>/workoutlifts</td>
-				<td>GET</td>
-				<td>(workouts.uniqueid)</td>
-				<td>Get lifts from a workout</td>
-			</tr>
+				<td>(workoutid)</td>
+				<td>Get all lifts from a workout</td>
+			</tr>	
 			<tr>
 				<td>/userlifts</td>
 				<td>POST</td>
-				<td>(users.id), lifts.id, reps, weight, [success, ss]</td>
+				<td>userid, liftid, reps, amt, [success]</td>
 				<td>Create new user lift</td>
 			</tr>
 			<tr>
 				<td>/userlifts</td>
 				<td>GET</td>
-				<td>(users.id), [date range]</td>
+				<td>(userid), [date range]</td>
 				<td>Get user lifts in a date range</td>
 			</tr>
 			<tr>
 				<td>/userlifts</td>
 				<td>PUT</td>
-				<td>(user.id), lifts.id, reps, weight, [success, ss]</td>
+				<td>(id), userid, liftid, reps, amt, [success]</td>
 				<td>Update user lift</td>
 			</tr>
 			<tr>
@@ -140,19 +114,19 @@
 			<tr>
 				<td>/maxes</td>
 				<td>POST</td>
-				<td>(users.id, lifts.id, weight, reps)</td>
+				<td>(usersid, liftid, amt, reps)</td>
 				<td>Creates new max for a user</td>
 			</tr>
 			<tr>
 				<td>/maxes</td>
 				<td>GET</td>
-				<td>(users.id)</td>
+				<td>(userid)</td>
 				<td>Get all maxes for a user</td>
 			</tr>
 			<tr>
 				<td>/maxes</td>
 				<td>PUT</td>
-				<td>(users.id, lifts.id, weight, reps)</td>
+				<td>(usersid, liftid, amt, reps)</td>
 				<td>Updates max for a user</td>
 			</tr>
 		</tbody>
@@ -310,6 +284,12 @@
 				<td></td>
 			</tr>
 			<tr>
+				<td>userid</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
 				<td>liftid</td>
 				<td></td>
 				<td></td>
@@ -354,6 +334,12 @@
 			</tr>
 			<tr>
 				<td>name</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>description</td>
 				<td></td>
 				<td></td>
 				<td></td>

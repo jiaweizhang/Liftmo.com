@@ -4,30 +4,130 @@ Backend for JSON Web API used by Liftmo Android app.
 
 ## API Url Structure
 
-| URL | Method | Parameters | Description |
-| --- | ------ | ---------- | ----------- |
-| /register | POST | (email), fname, lname, password | New user registration |
-| /register | PUT | (email), [fname, lname, password, unit] | Update user info |
-| /login | POST | (email, password) | User login |
-| /lifts | POST | (name), description, [altname] | Create new lift |
-| /lifts | GET | [id] | Fetch lift |
-| /lifts | PUT | (id), name, description, [altname] | Update lift |
-| /lifts | DELETE | (id) | Delete lift (should not be used) |
-| /workouts | POST | (uniqueid), id, users.fname, users.lname, description, delay | Create new workout |
-| /workouts | GET | (uniqueid) | Fetch workout |
-| /workouts | PUT | (uniqueid), id, users.fname, users.lname, description, delay | Update workout |
-| /workouts | DELETE | (uniqueid) | Delete a workout along with all its lifts |
-| /workoutlifts | POST | (workouts.uniqueid, num), lifts.id, reps, ss | Add new lift within a workout |
-| /workoutlifts | GET | (workouts.uniqueid, num) | Get lift from a workout |
-| /workoutlifts | GET | (workouts.uniqueid) | Get lifts from a workout |
-| /userlifts | POST | (users.id), lifts.id, reps, weight, [success, ss] | Create new user lift |
-| /userlifts | GET | (users.id), [date range] | Get user lifts in a date range |
-| /userlifts | PUT | (user.id), lifts.id, reps, weight, [success, ss] | Update user lift |
-| /userlifts | DELETE | (id) | Remove user lift |
-| /maxes | POST | (users.id, lifts.id, weight, reps) | Creates new max for a user |
-| /maxes | GET | (users.id) | Get all maxes for a user |
-| /maxes | PUT | (users.id, lifts.id, weight, reps) | Updates max for a user |
-
+<h2>RESTful API service (JSON)</h2>
+<h3>How to use</h3>
+<ul>
+	<li>POST, PUT, DELETE parameters are packaged</li>
+	<li>GET parameters are url-encoded</li>
+	<li>Parameters in () are primary key</li>
+	<li>Parameters in [] are optional</li>
+	<li>All other parameters are required</li>
+</ul>
+<h3>API URL calls</h3>
+<table class="table table-hover table-bordered">
+	<thead>
+		<tr>
+			<th>URL</th>
+			<th>Method</th>
+			<th>Parameters</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>/register</td>
+			<td>POST</td>
+			<td>(email, password)</td>
+			<td>New user registration</td>
+		</tr>
+		<tr>
+			<td>/register</td>
+			<td>PUT</td>
+			<td>(email), [fname, lname, password, unit, city, state, country]</td>
+			<td>Update user info</td>
+		</tr>
+		<tr>
+			<td>/login</td>
+			<td>POST</td>
+			<td>(email, password)</td>
+			<td>User login</td>
+		</tr>
+		<tr>
+			<td>/lifts</td>
+			<td>GET</td>
+			<td>none</td>
+			<td>Fetch all lifts</td>
+		</tr>
+		<tr>
+			<td>/workouts</td>
+			<td>POST</td>
+			<td>name, description, authorfname, authorlname</td>
+			<td>Create new workout</td>
+		</tr>
+		<tr>
+			<td>/workouts</td>
+			<td>GET</td>
+			<td>(id)</td>
+			<td>Fetch workout</td>
+		</tr>
+		<tr>
+			<td>/workouts</td>
+			<td>PUT</td>
+			<td>(id), name, description, authorfname, authorlname</td>
+			<td>Update workout</td>
+		</tr>
+		<tr>
+			<td>/workouts</td>
+			<td>DELETE</td>
+			<td>(id)</td>
+			<td>Delete a workout along with all its lifts</td>
+		</tr>
+		<tr>
+			<td>/workoutlifts</td>
+			<td>POST</td>
+			<td>(workoutid, liftnum), liftsid, reps, amt</td>
+			<td>Add new lift within a workout</td>
+		</tr>
+		<tr>
+			<td>/workoutlifts</td>
+			<td>GET</td>
+			<td>(workoutid)</td>
+			<td>Get all lifts from a workout</td>
+		</tr>	
+		<tr>
+			<td>/userlifts</td>
+			<td>POST</td>
+			<td>userid, liftid, reps, amt, [success]</td>
+			<td>Create new user lift</td>
+		</tr>
+		<tr>
+			<td>/userlifts</td>
+			<td>GET</td>
+			<td>(userid), [date range]</td>
+			<td>Get user lifts in a date range</td>
+		</tr>
+		<tr>
+			<td>/userlifts</td>
+			<td>PUT</td>
+			<td>(id), userid, liftid, reps, amt, [success]</td>
+			<td>Update user lift</td>
+		</tr>
+		<tr>
+			<td>/userlifts</td>
+			<td>DELETE</td>
+			<td>(id)</td>
+			<td>Remove user lift</td>
+		</tr>
+		<tr>
+			<td>/maxes</td>
+			<td>POST</td>
+			<td>(usersid, liftid, amt, reps)</td>
+			<td>Creates new max for a user</td>
+		</tr>
+		<tr>
+			<td>/maxes</td>
+			<td>GET</td>
+			<td>(userid)</td>
+			<td>Get all maxes for a user</td>
+		</tr>
+		<tr>
+			<td>/maxes</td>
+			<td>PUT</td>
+			<td>(usersid, liftid, amt, reps)</td>
+			<td>Updates max for a user</td>
+		</tr>
+	</tbody>
+</table>
 <h2>Database Schema</h2>
 <h3>users</h3>
 <table class="table table-hover table-bordered">
@@ -42,26 +142,26 @@ Backend for JSON Web API used by Liftmo Android app.
 	<tbody>
 		<tr>
 			<td>id</td>
-			<td></td>
-			<td></td>
+			<td>int</td>
+			<td>20</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>fname</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>lname</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>email</td>
-			<td></td>
-			<td></td>
+			<td>varchar</td>
+			<td>255</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -181,6 +281,12 @@ Backend for JSON Web API used by Liftmo Android app.
 			<td></td>
 		</tr>
 		<tr>
+			<td>userid</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
 			<td>liftid</td>
 			<td></td>
 			<td></td>
@@ -225,6 +331,12 @@ Backend for JSON Web API used by Liftmo Android app.
 		</tr>
 		<tr>
 			<td>name</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>description</td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -406,7 +518,7 @@ Backend for JSON Web API used by Liftmo Android app.
 
 ## About
 
-Written by (Jiawei Zhang)[https://github.com/jiaweizhang]
+Written by [Jiawei Zhang](https://github.com/jiaweizhang)
 
 ## Libraries
 
