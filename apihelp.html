@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>API Guide</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body class="container">
+	<h2>RESTful API service (JSON)</h2>
+	<h3>How to use</h3>
+	<ul>
+		<li>POST, PUT, DELETE parameters are packaged</li>
+		<li>GET parameters are url-encoded</li>
+		<li>Parameters in () are primary key</li>
+		<li>Parameters in [] are optional</li>
+		<li>All other parameters are required</li>
+	</ul>
+	<h3>API URL calls</h3>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>URL</th>
+				<th>Method</th>
+				<th>Parameters</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>/register</td>
+				<td>POST</td>
+				<td>(email), fname, lname, password</td>
+				<td>New user registration</td>
+			</tr>
+			<tr>
+				<td>/register</td>
+				<td>PUT</td>
+				<td>(email), [fname, lname, password, unit]</td>
+				<td>Update user info</td>
+			</tr>
+			<tr>
+				<td>/login</td>
+				<td>POST</td>
+				<td>(email, password)</td>
+				<td>User login</td>
+			</tr>
+			<tr>
+				<td>/lifts</td>
+				<td>POST</td>
+				<td>(name), description, [altname]</td>
+				<td>Create new lift</td>
+			</tr>
+			<tr>
+				<td>/lifts</td>
+				<td>GET</td>
+				<td>[name])</td>
+				<td>Fetch lift</td>
+			</tr>
+			<tr>
+				<td>/lifts</td>
+				<td>PUT</td>
+				<td>(name), description, [altname]</td>
+				<td>Update lift</td>
+			</tr>
+			<tr>
+				<td>/lifts</td>
+				<td>DELETE</td>
+				<td>(name)</td>
+				<td>Delete lift (should not be used)</td>
+			</tr>
+			<tr>
+				<td>/workouts</td>
+				<td>POST</td>
+				<td>(uniqueid), id, users.fname, users.lname, description,
+					delay</td>
+				<td>Create new workout</td>
+			</tr>
+			<tr>
+				<td>/workouts</td>
+				<td>GET</td>
+				<td>(uniqueid)</td>
+				<td>Fetch workout</td>
+			</tr>
+			<tr>
+				<td>/workouts</td>
+				<td>PUT</td>
+				<td>(uniqueid), id, users.fname, users.lname, description,
+					delay</td>
+				<td>Update workout</td>
+			</tr>
+			<tr>
+				<td>/workouts</td>
+				<td>DELETE</td>
+				<td>(uniqueid)</td>
+				<td>Delete a workout along with all its lifts</td>
+			</tr>
+			<tr>
+				<td>/workoutlifts</td>
+				<td>POST</td>
+				<td>(workouts.uniqueid, num), lifts.name, reps, ss</td>
+				<td>Add new lift within a workout</td>
+			</tr>
+			<tr>
+				<td>/workoutlifts</td>
+				<td>GET</td>
+				<td>(workouts.uniqueid, num)</td>
+				<td>Get lift from a workout</td>
+			</tr>
+			<tr>
+				<td>/workoutlifts</td>
+				<td>GET</td>
+				<td>(workouts.uniqueid)</td>
+				<td>Get lifts from a workout</td>
+			</tr>
+			<tr>
+				<td>/userlifts</td>
+				<td>POST</td>
+				<td>(users.id), lifts.name, reps, weight, [success, ss]</td>
+				<td>Create new user lift</td>
+			</tr>
+			<tr>
+				<td>/userlifts</td>
+				<td>GET</td>
+				<td>(users.id), [date range]</td>
+				<td>Get user lifts in a date range</td>
+			</tr>
+			<tr>
+				<td>/userlifts</td>
+				<td>PUT</td>
+				<td>(user.id), lifts.name, reps, weight, [success, ss]</td>
+				<td>Update user lift</td>
+			</tr>
+			<tr>
+				<td>/userlifts</td>
+				<td>DELETE</td>
+				<td>(id)</td>
+				<td>Remove user lift</td>
+			</tr>
+			<tr>
+				<td>/maxes</td>
+				<td>POST</td>
+				<td>(users.id, lifts.name, weight, reps)</td>
+				<td>Creates new max for a user</td>
+			</tr>
+			<tr>
+				<td>/maxes</td>
+				<td>GET</td>
+				<td>(users.id)</td>
+				<td>Get all maxes for a user</td>
+			</tr>
+			<tr>
+				<td>/maxes</td>
+				<td>PUT</td>
+				<td>(users.id, lifts.name, weight, reps)</td>
+				<td>Updates max for a user</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

@@ -8,17 +8,17 @@ handlers:
 - url: /js
   static_dir: js
 
-#- url: /api
-#  static_dir: api
-
-#- url: /api.*
-#  script: api/index.php
+- url: /css
+  static_dir: css
 
 - url: /dev/lifts
   script: /dev/lifts.html
 
 - url: /api/.*
   script: api/index.php
+
+- url: /api
+  script: apihelp.html
 
 - url: /.*
   script: home.html

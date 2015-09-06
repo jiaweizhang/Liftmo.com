@@ -10,7 +10,7 @@ Backend for JSON Web API used by Liftmo Android app.
 | /register | PUT | (email), [fname, lname, password, unit] | Update user info |
 | /login | POST | (email, password) | User login |
 | /lifts | POST | (name), description, [altname] | Create new lift |
-| /lifts | GET | (name) | Fetch lift (not much value) |
+| /lifts | GET | [name] | Fetch lift |
 | /lifts | PUT | (name), description, [altname] | Update lift |
 | /lifts | DELETE | (name) | Delete lift (should not be used) |
 | /workouts | POST | (uniqueid), id, users.fname, users.lname, description, delay | Create new workout |
