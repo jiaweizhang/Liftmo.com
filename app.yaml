@@ -11,9 +11,6 @@ handlers:
 - url: /css
   static_dir: css
 
-#- url: /dev/lifts
-#  script: /dev/lifts.html
-
 - url: /api/.*
   script: api/index.php
 
