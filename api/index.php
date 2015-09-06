@@ -36,7 +36,7 @@ $user_id = NULL;
  */
 
 // GET route
-$app->get)( '/', function () {
+$app->get( '/', function () {
     echo 'This is a GET route';
 });
 
@@ -238,10 +238,10 @@ $app->post('/maxes', function() use ($app) {
 /**
  * Get all maxes for user
  * url - /maxes
- * method - PUT
+ * method - GET
  * params - (users.id)
  */
-$app->put('/maxes', function() use ($app) {
+$app->get('/maxes', function() use ($app) {
     echo 'Get all maxes for user';
 });
 
