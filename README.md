@@ -25,7 +25,7 @@ Backend for JSON Web API used by Liftmo Android app.
 | /userlifts | PUT | (user.id), lifts.name, reps, weight, [success, ss] | Update user lift |
 | /userlifts | DELETE | (id) | Remove user lift |
 | /maxes | POST | (users.id, lifts.name, weight, reps) | Creates new max for a user |
-| /maxes | GETS | (users.id) | Get all maxes for a user |
+| /maxes | GET | (users.id) | Get all maxes for a user |
 | /maxes | PUT | (users.id, lifts.name, weight, reps) | Updates max for a user |
 
 ## About

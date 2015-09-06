@@ -35,23 +35,28 @@ $user_id = NULL;
  * is an anonymous function.
  */
 
+// POST route
+$app->post('/', function () {
+    echo 'This is a POST route';
+});
+
 // GET route
 $app->get( '/', function () {
     echo 'This is a GET route';
 });
 
 // PUT route
-$app->put( '/put', function () {
+$app->put( '/', function () {
     echo 'This is a PUT route';
 });
 
 // PATCH route
-$app->patch('/patch', function () {
+$app->patch('/', function () {
     echo 'This is a PATCH route';
 });
 
 // DELETE route
-$app->delete('/delete', function () {
+$app->delete('/', function () {
     echo 'This is a DELETE route';
 });
 
