@@ -19,10 +19,6 @@ class DbHandler {
         $this->conn = $db->connect();
     }
 
-    public function doThis() {
-        return "apples4 ";
-    }
-
     /* ------------- `users` table method ------------------ */
 
     /**

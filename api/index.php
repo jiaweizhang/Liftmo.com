@@ -5,52 +5,20 @@ require 'Slim/Slim.php';
 
 \Slim\Slim::registerAutoloader();
 
-$app = new \Slim\Slim ();
+$app = new \Slim\Slim();
+
+/*$app = new \Slim\Slim(array(
+    'log.enabled' => false
+));*/
+
+//$app = new \Slim\Slim();
+
+//$app->log->setEnabled(false);
 
 // Instantiate global user id from the db
 $user_id = NULL;
 
-/**
- * Adding Middle Layer to authenticate every request
- * Checking if the request has valid api key in the 'Authorization' header
- */
-function authenticate(\Slim\Route $route) {
-    // Getting request headers
-    /*$headers = apache_request_headers();
-    $response = array();*/
-    $app = \Slim\Slim::getInstance();
 
-    $response = array();
-    $response["error"] = false;
-    $response["message"] = "bananas"; //$headers['Authorization'];
-    echoRespnse(200, $response);
-
-    // Verifying Authorization Header
-    /*if (isset($headers['Authorization'])) {
-        //$db = new DbHandler();
-
-        // get the api key
-        $api_key = "17205ae7bae7667ffc1a296b3b7f6bc3";// $headers['Authorization'];
-        // validating api key
-        if (!$db->isValidApiKey($api_key)) {
-            // api key is not present in users table
-            $response["error"] = true;
-            $response["message"] = "Access Denied. Invalid Api key";
-            echoRespnse(401, $response);
-            $app->stop();
-        } else {
-            global $user_id;
-            // get user primary key id
-            $user_id = $db->getUserId($api_key);
-        }
-    } else {
-        // api key is missing in header
-        $response["error"] = true;
-        $response["message"] = "Api key is misssing";
-        echoRespnse(400, $response);
-        $app->stop();
-    }*/
-};
 
 /**
  * User Registration
@@ -129,39 +97,6 @@ $app->post('/login', function () use ($app) {
     echoRespnse(200, $response);
 });
 
-/**
- * Creating new task in db
- * method POST
- * params - name
- * url - /tasks/
- */
-$app->post('/tasks', 'authenticate', function () {
-    $response = array();
-    $response["error"] = false;
-    $response["message"] = "Profile successfully created.";
-    echoRespnse(200, $response);
-    // check for required params
-    /*verifyRequiredParams(array('task'));
-
-    $response = array();
-    $task = $app->request->post('task');
-
-    global $user_id;
-    $db = new DbHandler();
-
-    // creating new task
-    $task_id = $db->createTask($user_id, $task);
-
-    if ($task_id != NULL) {
-        $response["error"] = false;
-        $response["message"] = "Task created successfully";
-        $response["task_id"] = $task_id;
-    } else {
-        $response["error"] = true;
-        $response["message"] = "Failed to create task. Please try again";
-    }
-    echoRespnse(201, $response);*/
-});
 
 /**
  * Create user profile in db
@@ -170,12 +105,7 @@ $app->post('/tasks', 'authenticate', function () {
  * url - /profile
  */
 $app->post('/profile', 'authenticate', function () use ($app) {
-    $response = array();
-    $response["error"] = false;
-    $response["message"] = "Profile successfully created.";
-    echoRespnse(200, $response);
-    // check for required params
-    /*verifyRequiredParams(array('name', 'unit', 'city', 'state', 'country'));
+    verifyRequiredParams(array('name', 'unit', 'city', 'state', 'country'));
 
     $response = array();
     $name = $app->request->post('name');
@@ -187,7 +117,6 @@ $app->post('/profile', 'authenticate', function () use ($app) {
     global $user_id;
     $db = new DbHandler();
 
-    echo "bananas";
     // creating new task
     $res = $db->createProfile($user_id, $name, $unit, $city, $state, $country);
 
@@ -203,9 +132,56 @@ $app->post('/profile', 'authenticate', function () use ($app) {
         $response["error"] = true;
         $response["message"] = "Sorry, this profile already existed.";
         echoRespnse(200, $response);
-    }*/
+    }
 });
 
+
+/**
+ * Adding Middle Layer to authenticate every request
+ * Checking if the request has valid api key in the 'Authorization' header
+ */
+function authenticate() {
+    $app = \Slim\Slim::getInstance();
+    // Getting request headers
+    $headers = $app->request->headers;
+    $response = array();
+
+    /*$db = new DbHandler();
+
+    // get the api key
+    $api_key = $headers['Authorization'];
+
+    $response2 = array();
+    $response2["error"] = true;
+    $response2["message"] = $db->getUserId($api_key)['id'];
+    echoRespnse(400, $response2);
+    $app->stop();*/
+    // Verifying Authorization Header
+    if (isset($headers['Authorization'])) {
+        $db = new DbHandler();
+
+        // get the api key
+        $api_key = $headers['Authorization'];
+        // validating api key
+        if (!$db->isValidApiKey($api_key)) {
+            // api key is not present in users table
+            $response["error"] = true;
+            $response["message"] = "Access Denied. Invalid Api key";
+            echoRespnse(401, $response);
+            $app->stop();
+        } else {
+            global $user_id;
+            // get user primary key id
+            $user_id = $db->getUserId($api_key)['id'];
+        }
+    } else {
+        // api key is missing in header
+        $response["error"] = true;
+        $response["message"] = "Api key is misssing";
+        echoRespnse(400, $response);
+        $app->stop();
+    }
+};
 
 /**
  * Verifying required params posted or not
