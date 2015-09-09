@@ -64,30 +64,79 @@ $app->delete('/', function () {
  * User Registration
  * url - /register
  * method - POST
- * params - (email), fname, lname, password
+ * params - name, email, password
  */
 $app->post('/register', function () use ($app) {
-    echo 'User registration';
-});
+    // check for required params
+    verifyRequiredParams(array('name', 'email', 'password'));
 
-/**
- * User Update
- * url - /register
- * method - PUT
- * params - (email), [fname, lname, password, unit]
- */
-$app->put('/register', function () use ($app) {
-    echo 'Update user info';
+    $response = array();
+
+    // reading post params
+    $name = $app->request->post('name');
+    $email = $app->request->post('email');
+    $password = $app->request->post('password');
+
+    // validating email address
+    validateEmail($email);
+
+    $db = new DbHandler();
+    $res = $db->createUser($name, $email, $password);
+
+    if ($res == USER_CREATED_SUCCESSFULLY) {
+        $response["error"] = false;
+        $response["message"] = "You are successfully registered";
+        echoRespnse(201, $response);
+    } else if ($res == USER_CREATE_FAILED) {
+        $response["error"] = true;
+        $response["message"] = "Oops! An error occurred while registereing";
+        echoRespnse(200, $response);
+    } else if ($res == USER_ALREADY_EXISTED) {
+        $response["error"] = true;
+        $response["message"] = "Sorry, this email already existed";
+        echoRespnse(200, $response);
+    }
 });
 
 /**
  * User Login
  * url - /login
  * method - POST
- * params - (email, password)
+ * params - email, password
  */
 $app->post('/login', function () use ($app) {
-    echo 'User login';
+    // check for required params
+    verifyRequiredParams(array('email', 'password'));
+
+    // reading post params
+    $email = $app->request()->post('email');
+    $password = $app->request()->post('password');
+    $response = array();
+
+    $db = new DbHandler();
+    // check for correct email and password
+    if ($db->checkLogin($email, $password)) {
+        // get the user by email
+        $user = $db->getUserByEmail($email);
+
+        if ($user != NULL) {
+            $response["error"] = false;
+            $response['name'] = $user['name'];
+            $response['email'] = $user['email'];
+            $response['apiKey'] = $user['api_key'];
+            $response['createdAt'] = $user['created_at'];
+        } else {
+            // unknown error occurred
+            $response['error'] = true;
+            $response['message'] = "An error occurred. Please try again";
+        }
+    } else {
+        // user credentials are wrong
+        $response['error'] = true;
+        $response['message'] = 'Login failed. Incorrect credentials';
+    }
+
+    echoRespnse(200, $response);
 });
 
 /**
@@ -290,6 +339,45 @@ function validateEmail($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $response["error"] = true;
         $response["message"] = 'Email address is not valid';
+        echoRespnse(400, $response);
+        $app->stop();
+    }
+}
+
+/**
+ * Adding Middle Layer to authenticate every request
+ * Checking if the request has valid api key in the 'Authorization' header
+ */
+function authenticate(\Slim\Route $route) {
+    // Getting request headers
+    $headers = apache_request_headers();
+    $response = array();
+    $app = \Slim\Slim::getInstance();
+
+    // Verifying Authorization Header
+    if (isset($headers['Authorization'])) {
+        $db = new DbHandler();
+
+        // get the api key
+        $api_key = $headers['Authorization'];
+        // validating api key
+        if (!$db->isValidApiKey($api_key)) {
+            // api key is not present in users table
+            $response["error"] = true;
+            $response["message"] = "Access Denied. Invalid Api key";
+            echoRespnse(401, $response);
+            $app->stop();
+        } else {
+            global $user_id;
+            // get user primary key id
+            $user = $db->getUserId($api_key);
+            if ($user != NULL)
+                $user_id = $user["id"];
+        }
+    } else {
+        // api key is missing in header
+        $response["error"] = true;
+        $response["message"] = "Api key is misssing";
         echoRespnse(400, $response);
         $app->stop();
     }
