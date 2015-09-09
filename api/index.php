@@ -16,16 +16,21 @@ $user_id = NULL;
  */
 function authenticate(\Slim\Route $route) {
     // Getting request headers
-    $headers = apache_request_headers();
-    $response = array();
+    /*$headers = apache_request_headers();
+    $response = array();*/
     $app = \Slim\Slim::getInstance();
 
+    $response = array();
+    $response["error"] = false;
+    $response["message"] = "bananas"; //$headers['Authorization'];
+    echoRespnse(200, $response);
+
     // Verifying Authorization Header
-    if (isset($headers['Authorization'])) {
-        $db = new DbHandler();
+    /*if (isset($headers['Authorization'])) {
+        //$db = new DbHandler();
 
         // get the api key
-        $api_key = $headers['Authorization'];
+        $api_key = "17205ae7bae7667ffc1a296b3b7f6bc3";// $headers['Authorization'];
         // validating api key
         if (!$db->isValidApiKey($api_key)) {
             // api key is not present in users table
@@ -44,7 +49,7 @@ function authenticate(\Slim\Route $route) {
         $response["message"] = "Api key is misssing";
         echoRespnse(400, $response);
         $app->stop();
-    }
+    }*/
 };
 
 /**
