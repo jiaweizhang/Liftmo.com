@@ -39,7 +39,7 @@ class DbHandler {
             $api_key = $this->generateApiKey();
 
             // insert query
-            $stmt = $this->conn->prepare("INSERT INTO users(email, password_hash, api_key, status) values(?, ?, ?, 1)");
+            $stmt = $this->conn->prepare("INSERT INTO users(email, password_hash, api_key, status, profile_created) values(?, ?, ?, 1, 0)");
             $stmt->bind_param("sss", $email, $password_hash, $api_key);
 
             $result = $stmt->execute();
@@ -123,7 +123,7 @@ class DbHandler {
      * @param String $email User email id
      */
     public function getUserByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT email, api_key, status, created_at FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT email, api_key, status, created_at, profile_created FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
             $user = $stmt->get_result()->fetch_assoc();
@@ -205,6 +205,10 @@ class DbHandler {
 
             if ($result) {
                 // User successfully inserted
+                $stmt = $this->conn->prepare("UPDATE users SET profile_created=1 WHERE id=?");
+                $stmt->bind_param("s", $user_id);
+                $stmt->execute();
+                $stmt->close();
                 return USERPROFILE_CREATED_SUCCESSFULLY;
             } else {
                 // Failed to create user

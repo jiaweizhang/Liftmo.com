@@ -83,6 +83,7 @@ $app->post('/login', function () use ($app) {
             $response['email'] = $user['email'];
             $response['apiKey'] = $user['api_key'];
             $response['createdAt'] = $user['created_at'];
+            $response['profileCreated'] = $user['profile_created'];
         } else {
             // unknown error occurred
             $response['error'] = true;
