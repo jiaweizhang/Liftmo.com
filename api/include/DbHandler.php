@@ -195,9 +195,44 @@ class DbHandler {
 
     /* ----------- Authenticated User methods */
 
+    /**
+     * Creating new user profile
+     * @param String $user_id user id to whom task belongs to
+     * @param String $task task text
+     */
+    public function createProfile($user_id, $name, $unit, $city, $state, $country) {
+        if (!$this->isProfileExists($user_id)) {
+            $stmt = $this->conn->prepare("INSERT INTO userprofiles(id, name, unit, city, state, country) VALUES(?,?,?,?,?,?)");
+            $stmt->bind_param("ssssss", $user_id, $name, $unit, $city, $state, $country);
+            $result = $stmt->execute();
+            $stmt->close();
 
+            if ($result) {
+                // User successfully inserted
+                return USERPROFILE_CREATED_SUCCESSFULLY;
+            } else {
+                // Failed to create user
+                return USERPROFILE_CREATE_FAILED;
+            }
+        } else {
+            return USERPROFILE_ALREADY_EXISTED;
+        }
+    }
 
-
+    /**
+     * Checking for duplicate profile by id
+     * @param int id
+     * @return boolean
+     */
+    private function isProfileExists($user_id) {
+        $stmt = $this->conn->prepare("SELECT name from userprofiles WHERE id = ?");
+        $stmt->bind_param("s", $user_id);
+        $stmt->execute();
+        $stmt->store_result();
+        $num_rows = $stmt->num_rows;
+        $stmt->close();
+        return $num_rows > 0;
+    }
 
     /* ------------- `lifts` table method ------------------ */
 

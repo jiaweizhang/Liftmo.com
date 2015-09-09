@@ -1,64 +1,51 @@
 <?php
-/**
- * Step 1: Require the Slim Framework
- *
- * If you are not using Composer, you need to require the
- * Slim Framework and register its PSR-0 autoloader.
- *
- * If you are using Composer, you can skip this step.
- */
 require_once 'include/DbHandler.php';
 require_once 'include/PassHash.php';
 require 'Slim/Slim.php';
 
 \Slim\Slim::registerAutoloader();
 
-/**
- * Step 2: Instantiate a Slim application
- *
- * This example instantiates a Slim application using
- * its default settings. However, you will usually configure
- * your Slim application now by passing an associative array
- * of setting names and values into the application constructor.
- */
 $app = new \Slim\Slim ();
 
 // Instantiate global user id from the db
 $user_id = NULL;
 
 /**
- * Step 3: Define the Slim application routes
- *
- * Here we define several Slim application routes that respond
- * to appropriate HTTP request methods. In this example, the second
- * argument for `Slim::get`, `Slim::post`, `Slim::put`, `Slim::patch`, and `Slim::delete`
- * is an anonymous function.
+ * Adding Middle Layer to authenticate every request
+ * Checking if the request has valid api key in the 'Authorization' header
  */
+function authenticate(\Slim\Route $route) {
+    // Getting request headers
+    $headers = apache_request_headers();
+    $response = array();
+    $app = \Slim\Slim::getInstance();
 
-// POST route
-$app->post('/', function () {
-    echo 'This is a POST route';
-});
+    // Verifying Authorization Header
+    if (isset($headers['Authorization'])) {
+        $db = new DbHandler();
 
-// GET route
-$app->get('/', function () {
-    echo 'This is a GET route';
-});
-
-// PUT route
-$app->put('/', function () {
-    echo 'This is a PUT route';
-});
-
-// PATCH route
-$app->patch('/', function () {
-    echo 'This is a PATCH route';
-});
-
-// DELETE route
-$app->delete('/', function () {
-    echo 'This is a DELETE route';
-});
+        // get the api key
+        $api_key = $headers['Authorization'];
+        // validating api key
+        if (!$db->isValidApiKey($api_key)) {
+            // api key is not present in users table
+            $response["error"] = true;
+            $response["message"] = "Access Denied. Invalid Api key";
+            echoRespnse(401, $response);
+            $app->stop();
+        } else {
+            global $user_id;
+            // get user primary key id
+            $user_id = $db->getUserId($api_key);
+        }
+    } else {
+        // api key is missing in header
+        $response["error"] = true;
+        $response["message"] = "Api key is misssing";
+        echoRespnse(400, $response);
+        $app->stop();
+    }
+};
 
 /**
  * User Registration
@@ -138,14 +125,18 @@ $app->post('/login', function () use ($app) {
 });
 
 /**
- * Creating new user profile in db
+ * Creating new task in db
  * method POST
  * params - name
  * url - /tasks/
  */
-$app->post('/tasks', 'authenticate', function () use ($app) {
+$app->post('/tasks', 'authenticate', function () {
+    $response = array();
+    $response["error"] = false;
+    $response["message"] = "Profile successfully created.";
+    echoRespnse(200, $response);
     // check for required params
-    verifyRequiredParams(array('task'));
+    /*verifyRequiredParams(array('task'));
 
     $response = array();
     $task = $app->request->post('task');
@@ -164,169 +155,52 @@ $app->post('/tasks', 'authenticate', function () use ($app) {
         $response["error"] = true;
         $response["message"] = "Failed to create task. Please try again";
     }
-    echoRespnse(201, $response);
+    echoRespnse(201, $response);*/
 });
 
-
 /**
- * Fetch lift
- * url - /lifts
- * method - GET
- * params - none
+ * Create user profile in db
+ * method POST
+ * params - name, unit, city, state, country
+ * url - /profile
  */
-$app->get('/lifts', function () use ($app) {
-    // echo 'Fetch lift if name is not null. Else fetch all lifts';
-    $db = new DbHandler ();
-
-    // fetching all user tasks
-    $result = $db->getLifts();
-
-    $response ["error"] = false;
-    $response ["lifts"] = array();
-
-    // looping through result and preparing tasks array
-    while ($lift = $result->fetch_assoc()) {
-        $tmp = array();
-        $tmp ["id"] = $lift ["id"];
-        $tmp ["name"] = $lift ["name"];
-        $tmp ["nickname"] = $lift ["nickname"];
-        $tmp ["description"] = $lift ["description"];
-        $tmp ["videourl"] = $lift ["videourl"];
-        $tmp ["parentname"] = $lift ["parentname"];
-        array_push($response ["lifts"], $tmp);
-    }
+$app->post('/profile', 'authenticate', function () use ($app) {
+    $response = array();
+    $response["error"] = false;
+    $response["message"] = "Profile successfully created.";
     echoRespnse(200, $response);
+    // check for required params
+    /*verifyRequiredParams(array('name', 'unit', 'city', 'state', 'country'));
+
+    $response = array();
+    $name = $app->request->post('name');
+    $unit = $app->request->post('unit');
+    $city = $app->request->post('city');
+    $state = $app->request->post('state');
+    $country = $app->request->post('country');
+
+    global $user_id;
+    $db = new DbHandler();
+
+    echo "bananas";
+    // creating new task
+    $res = $db->createProfile($user_id, $name, $unit, $city, $state, $country);
+
+    if ($res == USERPROFILE_CREATED_SUCCESSFULLY) {
+        $response["error"] = false;
+        $response["message"] = "Profile successfully created.";
+        echoRespnse(201, $response);
+    } else if ($res == USERPROFILE_CREATE_FAILED) {
+        $response["error"] = true;
+        $response["message"] = "Oops! An error occurred while creating profile.";
+        echoRespnse(200, $response);
+    } else if ($res == USERPROFILE_ALREADY_EXISTED) {
+        $response["error"] = true;
+        $response["message"] = "Sorry, this profile already existed.";
+        echoRespnse(200, $response);
+    }*/
 });
 
-/**
- * Create new workout
- * url - /workout
- * method - POST
- * params - (uniqueid), id, users.fname, users.lname, description, delay
- */
-$app->post('/workouts', function () use ($app) {
-    echo 'Create new workout';
-});
-
-/**
- * Fetch workout
- * url - /workouts
- * method - GET
- * params - (uniqueid)
- */
-$app->get('/workouts', function () use ($app) {
-    echo 'Fetch workout';
-});
-
-/**
- * Update workout
- * url - /workouts
- * method - PUT
- * params - (uniqueid), id, users.fname, users.lname, description, delay
- */
-$app->put('/workouts', function () use ($app) {
-    echo 'Update workout';
-});
-
-/**
- * Delete workout along with all its lifts
- * url - /workouts
- * method - DELETE
- * params - (uniqueid)
- */
-$app->delete('/workouts', function () {
-    echo 'Delete workouts along with all its lifts';
-});
-
-/**
- * Adds new lift within a workout
- * url - /workoutlifts
- * method - POST
- * params - (workouts.uniqueid, num), lifts.id, reps, ss
- */
-$app->post('/workoutlifts', function () use ($app) {
-    echo 'Adds new lift within a workout';
-});
-
-/**
- * Gets lifts from a workout
- * url - /workoutlifts
- * method - GET
- * params - (workouts.uniqueid, num)
- */
-$app->get('/workoutlifts', function () use ($app) {
-    echo 'Fetch lifts from a workout';
-});
-
-/**
- * Create new user lift
- * url - /userlifts
- * method - POST
- * params - (users.id), lifts.id, reps, weight, [success, ss]
- */
-$app->post('/userlifts', function () use ($app) {
-    echo 'Create new user lift';
-});
-
-/**
- * Gets user lifts in a date range
- * url - /userlifts
- * method - GET
- * params - (users.id), [date range]
- */
-$app->get('/userlifts', function () use ($app) {
-    echo 'Gets user lifts in a date range';
-});
-
-/**
- * Update user lift
- * url - /userlifts
- * method - PUT
- * params - (user.id), lifts.id, reps, weight, [success, ss]
- */
-$app->put('/userlifts', function () use ($app) {
-    echo 'Updates user lift';
-});
-
-/**
- * Delete user lift
- * url - /userlifts
- * method - DELETE
- * params - (id)
- */
-$app->delete('/userlifts', function () {
-    echo 'Removes user lift';
-});
-
-/**
- * Create new max for user
- * url - /maxes
- * method - POST
- * params - (users.id, lifts.id, weight, reps)
- */
-$app->post('/maxes', function () use ($app) {
-    echo 'Creates new max for a user';
-});
-
-/**
- * Get all maxes for user
- * url - /maxes
- * method - GET
- * params - (users.id)
- */
-$app->get('/maxes', function () use ($app) {
-    echo 'Get all maxes for user';
-});
-
-/**
- * Update max for user
- * url - /maxes
- * method - PUT
- * params - (users.id, lifts.id, weight, reps)
- */
-$app->put('/maxes', function () use ($app) {
-    echo 'Updates max for user';
-});
 
 /**
  * Verifying required params posted or not
@@ -368,45 +242,6 @@ function validateEmail($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $response["error"] = true;
         $response["message"] = 'Email address is not valid';
-        echoRespnse(400, $response);
-        $app->stop();
-    }
-}
-
-/**
- * Adding Middle Layer to authenticate every request
- * Checking if the request has valid api key in the 'Authorization' header
- */
-function authenticate(\Slim\Route $route) {
-    // Getting request headers
-    $headers = apache_request_headers();
-    $response = array();
-    $app = \Slim\Slim::getInstance();
-
-    // Verifying Authorization Header
-    if (isset($headers['Authorization'])) {
-        $db = new DbHandler();
-
-        // get the api key
-        $api_key = $headers['Authorization'];
-        // validating api key
-        if (!$db->isValidApiKey($api_key)) {
-            // api key is not present in users table
-            $response["error"] = true;
-            $response["message"] = "Access Denied. Invalid Api key";
-            echoRespnse(401, $response);
-            $app->stop();
-        } else {
-            global $user_id;
-            // get user primary key id
-            $user = $db->getUserId($api_key);
-            if ($user != NULL)
-                $user_id = $user["id"];
-        }
-    } else {
-        // api key is missing in header
-        $response["error"] = true;
-        $response["message"] = "Api key is misssing";
         echoRespnse(400, $response);
         $app->stop();
     }
