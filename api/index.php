@@ -68,12 +68,11 @@ $app->delete('/', function () {
  */
 $app->post('/register', function () use ($app) {
     // check for required params
-    verifyRequiredParams(array('name', 'email', 'password'));
+    verifyRequiredParams(array('email', 'password'));
 
     $response = array();
 
     // reading post params
-    $name = $app->request->post('name');
     $email = $app->request->post('email');
     $password = $app->request->post('password');
 
@@ -81,7 +80,7 @@ $app->post('/register', function () use ($app) {
     validateEmail($email);
 
     $db = new DbHandler();
-    $res = $db->createUser($name, $email, $password);
+    $res = $db->createUser($email, $password);
 
     if ($res == USER_CREATED_SUCCESSFULLY) {
         $response["error"] = false;
@@ -121,7 +120,6 @@ $app->post('/login', function () use ($app) {
 
         if ($user != NULL) {
             $response["error"] = false;
-            $response['name'] = $user['name'];
             $response['email'] = $user['email'];
             $response['apiKey'] = $user['api_key'];
             $response['createdAt'] = $user['created_at'];
@@ -138,6 +136,37 @@ $app->post('/login', function () use ($app) {
 
     echoRespnse(200, $response);
 });
+
+/**
+ * Creating new user profile in db
+ * method POST
+ * params - name
+ * url - /tasks/
+ */
+$app->post('/tasks', 'authenticate', function () use ($app) {
+    // check for required params
+    verifyRequiredParams(array('task'));
+
+    $response = array();
+    $task = $app->request->post('task');
+
+    global $user_id;
+    $db = new DbHandler();
+
+    // creating new task
+    $task_id = $db->createTask($user_id, $task);
+
+    if ($task_id != NULL) {
+        $response["error"] = false;
+        $response["message"] = "Task created successfully";
+        $response["task_id"] = $task_id;
+    } else {
+        $response["error"] = true;
+        $response["message"] = "Failed to create task. Please try again";
+    }
+    echoRespnse(201, $response);
+});
+
 
 /**
  * Fetch lift

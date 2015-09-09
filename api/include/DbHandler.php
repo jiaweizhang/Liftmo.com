@@ -27,11 +27,10 @@ class DbHandler {
 
     /**
      * Creating new user
-     * @param String $name User full name
      * @param String $email User login email id
      * @param String $password User login password
      */
-    public function createUser($name, $email, $password) {
+    public function createUser($email, $password) {
         require_once 'PassHash.php';
         $response = array();
 
@@ -44,8 +43,8 @@ class DbHandler {
             $api_key = $this->generateApiKey();
 
             // insert query
-            $stmt = $this->conn->prepare("INSERT INTO users(name, email, password_hash, api_key, status) values(?, ?, ?, ?, 1)");
-            $stmt->bind_param("ssss", $name, $email, $password_hash, $api_key);
+            $stmt = $this->conn->prepare("INSERT INTO users(email, password_hash, api_key, status) values(?, ?, ?, 1)");
+            $stmt->bind_param("sss", $email, $password_hash, $api_key);
 
             $result = $stmt->execute();
 
@@ -128,7 +127,7 @@ class DbHandler {
      * @param String $email User email id
      */
     public function getUserByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT name, email, api_key, status, created_at FROM users WHERE email = ?");
+        $stmt = $this->conn->prepare("SELECT email, api_key, status, created_at FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         if ($stmt->execute()) {
             $user = $stmt->get_result()->fetch_assoc();
@@ -193,6 +192,12 @@ class DbHandler {
     private function generateApiKey() {
         return md5(uniqid(rand(), true));
     }
+
+    /* ----------- Authenticated User methods */
+
+
+
+
 
     /* ------------- `lifts` table method ------------------ */
 
