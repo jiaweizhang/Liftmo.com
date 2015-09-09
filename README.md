@@ -1,8 +1,6 @@
-# Liftmo
+<h1>Liftmo</h1>
 
 Backend for JSON Web API used by Liftmo Android app.
-
-## API Url Structure
 
 <h2>RESTful API service (JSON)</h2>
 <h3>How to use</h3>

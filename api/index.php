@@ -11,7 +11,7 @@ require_once 'include/DbHandler.php';
 require_once 'include/PassHash.php';
 require 'Slim/Slim.php';
 
-\Slim\Slim::registerAutoloader ();
+\Slim\Slim::registerAutoloader();
 
 /**
  * Step 2: Instantiate a Slim application
@@ -36,29 +36,29 @@ $user_id = NULL;
  */
 
 // POST route
-$app->post ( '/', function () {
-	echo 'This is a POST route';
-} );
+$app->post('/', function () {
+    echo 'This is a POST route';
+});
 
 // GET route
-$app->get ( '/', function () {
-	echo 'This is a GET route';
-} );
+$app->get('/', function () {
+    echo 'This is a GET route';
+});
 
 // PUT route
-$app->put ( '/', function () {
-	echo 'This is a PUT route';
-} );
+$app->put('/', function () {
+    echo 'This is a PUT route';
+});
 
 // PATCH route
-$app->patch ( '/', function () {
-	echo 'This is a PATCH route';
-} );
+$app->patch('/', function () {
+    echo 'This is a PATCH route';
+});
 
 // DELETE route
-$app->delete ( '/', function () {
-	echo 'This is a DELETE route';
-} );
+$app->delete('/', function () {
+    echo 'This is a DELETE route';
+});
 
 /**
  * User Registration
@@ -66,9 +66,9 @@ $app->delete ( '/', function () {
  * method - POST
  * params - (email), fname, lname, password
  */
-$app->post ( '/register', function () use($app) {
-	echo 'User registration';
-} );
+$app->post('/register', function () use ($app) {
+    echo 'User registration';
+});
 
 /**
  * User Update
@@ -76,9 +76,9 @@ $app->post ( '/register', function () use($app) {
  * method - PUT
  * params - (email), [fname, lname, password, unit]
  */
-$app->put ( '/register', function () use($app) {
-	echo 'Update user info';
-} );
+$app->put('/register', function () use ($app) {
+    echo 'Update user info';
+});
 
 /**
  * User Login
@@ -86,9 +86,9 @@ $app->put ( '/register', function () use($app) {
  * method - POST
  * params - (email, password)
  */
-$app->post ( '/login', function () use($app) {
-	echo 'User login';
-} );
+$app->post('/login', function () use ($app) {
+    echo 'User login';
+});
 
 /**
  * Fetch lift
@@ -96,29 +96,29 @@ $app->post ( '/login', function () use($app) {
  * method - GET
  * params - none
  */
-$app->get ( '/lifts', function () use($app) {
-	// echo 'Fetch lift if name is not null. Else fetch all lifts';
-	$db = new DbHandler ();
-	
-	// fetching all user tasks
-	$result = $db->getLifts();
-	
-	$response ["error"] = false;
-	$response ["lifts"] = array ();
-	
-	// looping through result and preparing tasks array
-	while ( $lift = $result->fetch_assoc () ) {
-		$tmp = array ();
-		$tmp ["id"] = $lift ["id"];
-		$tmp ["name"] = $lift ["name"];
-		$tmp ["nickname"] = $lift ["nickname"];
-		$tmp ["description"] = $lift ["description"];
-		$tmp ["videourl"] = $lift ["videourl"];
-		$tmp ["parentname"] = $lift ["parentname"];
-		array_push ( $response ["lifts"], $tmp );
-	}
-	echoRespnse(200, $response);
-} );
+$app->get('/lifts', function () use ($app) {
+    // echo 'Fetch lift if name is not null. Else fetch all lifts';
+    $db = new DbHandler ();
+
+    // fetching all user tasks
+    $result = $db->getLifts();
+
+    $response ["error"] = false;
+    $response ["lifts"] = array();
+
+    // looping through result and preparing tasks array
+    while ($lift = $result->fetch_assoc()) {
+        $tmp = array();
+        $tmp ["id"] = $lift ["id"];
+        $tmp ["name"] = $lift ["name"];
+        $tmp ["nickname"] = $lift ["nickname"];
+        $tmp ["description"] = $lift ["description"];
+        $tmp ["videourl"] = $lift ["videourl"];
+        $tmp ["parentname"] = $lift ["parentname"];
+        array_push($response ["lifts"], $tmp);
+    }
+    echoRespnse(200, $response);
+});
 
 /**
  * Create new workout
@@ -126,9 +126,9 @@ $app->get ( '/lifts', function () use($app) {
  * method - POST
  * params - (uniqueid), id, users.fname, users.lname, description, delay
  */
-$app->post ( '/workouts', function () use($app) {
-	echo 'Create new workout';
-} );
+$app->post('/workouts', function () use ($app) {
+    echo 'Create new workout';
+});
 
 /**
  * Fetch workout
@@ -136,9 +136,9 @@ $app->post ( '/workouts', function () use($app) {
  * method - GET
  * params - (uniqueid)
  */
-$app->get ( '/workouts', function () use($app) {
-	echo 'Fetch workout';
-} );
+$app->get('/workouts', function () use ($app) {
+    echo 'Fetch workout';
+});
 
 /**
  * Update workout
@@ -146,9 +146,9 @@ $app->get ( '/workouts', function () use($app) {
  * method - PUT
  * params - (uniqueid), id, users.fname, users.lname, description, delay
  */
-$app->put ( '/workouts', function () use($app) {
-	echo 'Update workout';
-} );
+$app->put('/workouts', function () use ($app) {
+    echo 'Update workout';
+});
 
 /**
  * Delete workout along with all its lifts
@@ -156,9 +156,9 @@ $app->put ( '/workouts', function () use($app) {
  * method - DELETE
  * params - (uniqueid)
  */
-$app->delete ( '/workouts', function () {
-	echo 'Delete workouts along with all its lifts';
-} );
+$app->delete('/workouts', function () {
+    echo 'Delete workouts along with all its lifts';
+});
 
 /**
  * Adds new lift within a workout
@@ -166,9 +166,9 @@ $app->delete ( '/workouts', function () {
  * method - POST
  * params - (workouts.uniqueid, num), lifts.id, reps, ss
  */
-$app->post ( '/workoutlifts', function () use($app) {
-	echo 'Adds new lift within a workout';
-} );
+$app->post('/workoutlifts', function () use ($app) {
+    echo 'Adds new lift within a workout';
+});
 
 /**
  * Gets lifts from a workout
@@ -176,9 +176,9 @@ $app->post ( '/workoutlifts', function () use($app) {
  * method - GET
  * params - (workouts.uniqueid, num)
  */
-$app->get ( '/workoutlifts', function () use($app) {
-	echo 'Fetch lifts from a workout';
-} );
+$app->get('/workoutlifts', function () use ($app) {
+    echo 'Fetch lifts from a workout';
+});
 
 /**
  * Create new user lift
@@ -186,9 +186,9 @@ $app->get ( '/workoutlifts', function () use($app) {
  * method - POST
  * params - (users.id), lifts.id, reps, weight, [success, ss]
  */
-$app->post ( '/userlifts', function () use($app) {
-	echo 'Create new user lift';
-} );
+$app->post('/userlifts', function () use ($app) {
+    echo 'Create new user lift';
+});
 
 /**
  * Gets user lifts in a date range
@@ -196,9 +196,9 @@ $app->post ( '/userlifts', function () use($app) {
  * method - GET
  * params - (users.id), [date range]
  */
-$app->get ( '/userlifts', function () use($app) {
-	echo 'Gets user lifts in a date range';
-} );
+$app->get('/userlifts', function () use ($app) {
+    echo 'Gets user lifts in a date range';
+});
 
 /**
  * Update user lift
@@ -206,9 +206,9 @@ $app->get ( '/userlifts', function () use($app) {
  * method - PUT
  * params - (user.id), lifts.id, reps, weight, [success, ss]
  */
-$app->put ( '/userlifts', function () use($app) {
-	echo 'Updates user lift';
-} );
+$app->put('/userlifts', function () use ($app) {
+    echo 'Updates user lift';
+});
 
 /**
  * Delete user lift
@@ -216,9 +216,9 @@ $app->put ( '/userlifts', function () use($app) {
  * method - DELETE
  * params - (id)
  */
-$app->delete ( '/userlifts', function () {
-	echo 'Removes user lift';
-} );
+$app->delete('/userlifts', function () {
+    echo 'Removes user lift';
+});
 
 /**
  * Create new max for user
@@ -226,9 +226,9 @@ $app->delete ( '/userlifts', function () {
  * method - POST
  * params - (users.id, lifts.id, weight, reps)
  */
-$app->post ( '/maxes', function () use($app) {
-	echo 'Creates new max for a user';
-} );
+$app->post('/maxes', function () use ($app) {
+    echo 'Creates new max for a user';
+});
 
 /**
  * Get all maxes for user
@@ -236,9 +236,9 @@ $app->post ( '/maxes', function () use($app) {
  * method - GET
  * params - (users.id)
  */
-$app->get ( '/maxes', function () use($app) {
-	echo 'Get all maxes for user';
-} );
+$app->get('/maxes', function () use ($app) {
+    echo 'Get all maxes for user';
+});
 
 /**
  * Update max for user
@@ -246,59 +246,72 @@ $app->get ( '/maxes', function () use($app) {
  * method - PUT
  * params - (users.id, lifts.id, weight, reps)
  */
-$app->put ( '/maxes', function () use($app) {
-	echo 'Updates max for user';
-} );
+$app->put('/maxes', function () use ($app) {
+    echo 'Updates max for user';
+});
 
 /**
  * Verifying required params posted or not
  */
 function verifyRequiredParams($required_fields) {
-	$error = false;
-	$error_fields = "";
-	$request_params = array ();
-	$request_params = $_REQUEST;
-	// Handling PUT request params
-	if ($_SERVER ['REQUEST_METHOD'] == 'PUT') {
-		$app = \Slim\Slim::getInstance ();
-		parse_str ( $app->request ()->getBody (), $request_params );
-	}
-	foreach ( $required_fields as $field ) {
-		if (! isset ( $request_params [$field] ) || strlen ( trim ( $request_params [$field] ) ) <= 0) {
-			$error = true;
-			$error_fields .= $field . ', ';
-		}
-	}
-	
-	if ($error) {
-		// Required field(s) are missing or empty
-		// echo error json and stop the app
-		$response = array ();
-		$app = \Slim\Slim::getInstance ();
-		$response ["error"] = true;
-		$response ["message"] = 'Required field(s) ' . substr ( $error_fields, 0, - 2 ) . ' is missing or empty';
-		echoRespnse ( 400, $response );
-		$app->stop ();
-	}
+    $error = false;
+    $error_fields = "";
+    $request_params = array();
+    $request_params = $_REQUEST;
+    // Handling PUT request params
+    if ($_SERVER ['REQUEST_METHOD'] == 'PUT') {
+        $app = \Slim\Slim::getInstance();
+        parse_str($app->request()->getBody(), $request_params);
+    }
+    foreach ($required_fields as $field) {
+        if (!isset ($request_params [$field]) || strlen(trim($request_params [$field])) <= 0) {
+            $error = true;
+            $error_fields .= $field . ', ';
+        }
+    }
+
+    if ($error) {
+        // Required field(s) are missing or empty
+        // echo error json and stop the app
+        $response = array();
+        $app = \Slim\Slim::getInstance();
+        $response ["error"] = true;
+        $response ["message"] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
+        echoRespnse(400, $response);
+        $app->stop();
+    }
+}
+
+/**
+ * Validating email address
+ */
+function validateEmail($email) {
+    $app = \Slim\Slim::getInstance();
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $response["error"] = true;
+        $response["message"] = 'Email address is not valid';
+        echoRespnse(400, $response);
+        $app->stop();
+    }
 }
 
 /**
  * Echoing json response to client
  *
  * @param String $status_code
- *        	Http response code
+ *            Http response code
  * @param Int $response
- *        	Json response
+ *            Json response
  */
 function echoRespnse($status_code, $response) {
-	$app = \Slim\Slim::getInstance ();
-	// Http response code
-	$app->status ( $status_code );
-	
-	// setting response content type to json
-	$app->contentType ( 'application/json' );
-	
-	echo json_encode ( $response );
+    $app = \Slim\Slim::getInstance();
+    // Http response code
+    $app->status($status_code);
+
+    // setting response content type to json
+    $app->contentType('application/json');
+
+    echo json_encode($response);
 }
 
 /**
@@ -307,4 +320,4 @@ function echoRespnse($status_code, $response) {
  * This method should be called last. This executes the Slim application
  * and returns the HTTP response to the HTTP client.
  */
-$app->run ();
+$app->run();
