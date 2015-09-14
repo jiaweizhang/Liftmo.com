@@ -3,9 +3,6 @@
 /**
  * Class to handle all db operations
  * This class will have CRUD methods for database tables
- *
- * @author Ravi Tamada
- * @link URL Tutorial link
  */
 class DbHandler {
 
@@ -13,13 +10,12 @@ class DbHandler {
 
     function __construct() {
         require_once dirname(__FILE__) . '/DbConnect.php';
-        //require_once 'DbConnect.php';
         // opening db connection
         $db = new DbConnect();
         $this->conn = $db->connect();
     }
 
-    /* ------------- `users` table method ------------------ */
+    /* ------------- USERS ------------------ */
 
     /**
      * Creating new user
@@ -28,7 +24,6 @@ class DbHandler {
      */
     public function createUser($email, $password) {
         require_once 'PassHash.php';
-        $response = array();
 
         // First check if user already existed in db
         if (!$this->isUserExists($email)) {
@@ -58,8 +53,6 @@ class DbHandler {
             // User with same email already existed in the db
             return USER_ALREADY_EXISTED;
         }
-
-        return $response;
     }
 
     /**
@@ -189,8 +182,6 @@ class DbHandler {
         return md5(uniqid(rand(), true));
     }
 
-    /* ----------- Authenticated User methods */
-
     /**
      * Creating new user profile
      * @param String $user_id user id to whom task belongs to
@@ -234,7 +225,7 @@ class DbHandler {
         return $num_rows > 0;
     }
 
-    /* ------------- `lifts` table method ------------------ */
+    /* ------------- LIFTS ------------------ */
 
     /**
      * Creating new lift
@@ -267,6 +258,8 @@ class DbHandler {
         $stmt->close();
         return $lifts;
     }
+
+    /* ------------- USERLIFTS ------------------ */
 }
 
 ?>
