@@ -1,5 +1,7 @@
 # Liftmo
 
+Check out the mobile site at http://m.liftmo.com ([Github](https://github.com/jiaweizhang/m.liftmo.com))
+
 ## Features
 
 * Registration, login, updating profile by API call
@@ -31,5 +33,4 @@ App built with the help of these services:
 
 ## Acknowledgements
 
-* Alan Guo for helping with Android application
 * Jeremy Lai for weightlifting knowledge
