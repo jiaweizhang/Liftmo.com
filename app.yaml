@@ -15,6 +15,9 @@ handlers:
 - url: /css
   static_dir: css
 
+- url: /pages
+  static_dir: pages
+
 - url: /api/.*
   script: api/index.php
 
@@ -22,5 +25,5 @@ handlers:
   script: apihelp.html
 
 - url: /.*
-  script: home.html
+  script: index.html
 

@@ -10,7 +10,9 @@
     <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
-    <script src="js/home.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
+
+    <script src="js/index.js"></script>
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -28,7 +30,7 @@
         ga('send', 'pageview');
     </script>
 </head>
-<body ng-app="homeApp" ng-controller="homeController">
+<body ng-app="app" ng-controller="controller">
 <nav class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -64,25 +66,12 @@
         </div>
     </div>
 </nav>
-<div class="container">
-    <div class="jumbotron">
-        <h2>Liftmo. </h2>
-    </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <p>Liftmo is a ...</p>
-            <p>Have you ever ...</p>
-        </div>
-        <div class="col-sm-4">
-            <h3>Sign Up</h3>
-            <h4>It's free and always will be</h4>
-            <form novalidate class="simple-form">
-                <input type="email" size="30" ng-model="signup.email" placeholder="Email"/><br /><br/>
-                <input type="password" size="30" ng-model="signup.password" placeholder="Password"/><br /><br/>
-                <input class="btn btn-primary" type="submit" ng-click="signup()" value="Sign Up" />
-            </form>
-        </div>
-    </div>
+<div id="main">
+    <div ng-view></div>
+
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
+
 </div>
 <div class="footer">
     <div class="container">
