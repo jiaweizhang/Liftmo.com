@@ -24,6 +24,9 @@ handlers:
 - url: /api
   script: apihelp.html
 
+- url: /dev
+  script: dev.html
+
 - url: /.*
   script: index.html
 

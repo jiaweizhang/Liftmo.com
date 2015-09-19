@@ -19,7 +19,6 @@ $app = new \Slim\Slim();
 $user_id = NULL;
 
 
-
 /**
  * User Registration
  * url - /register
@@ -100,6 +99,34 @@ $app->post('/login', function () use ($app) {
 
 
 /**
+ * Api key check
+ * url - /check
+ * method - POST
+ * params - n/a
+ */
+$app->post('/check', function () use ($app) {
+    $headers = $app->request->headers;
+    $response = array();
+    // Verifying Authorization Header
+    $db = new DbHandler();
+    // get the api key
+    $api_key = $headers['Authorization'];
+    // validating api key
+    if (!$db->isValidApiKey($api_key)) {
+        // api key is not present in users table
+        $response["error"] = true;
+        $response["message"] = "Access Denied. Invalid Api key";
+        echoRespnse(401, $response);
+        $app->stop();
+    } else {
+        $response["error"] = false;
+        $response["message"] = "Access Granted. Valid Api key";
+        echoRespnse(200, $response);
+    }
+});
+
+
+/**
  * Create user profile in db
  * method POST
  * params - name, unit, city, state, country
@@ -170,7 +197,9 @@ function authenticate() {
         echoRespnse(400, $response);
         $app->stop();
     }
-};
+}
+
+;
 
 /**
  * Verifying required params posted or not
@@ -235,4 +264,5 @@ function echoRespnse($status_code, $response) {
 
     echo json_encode($response);
 }
+
 $app->run();
