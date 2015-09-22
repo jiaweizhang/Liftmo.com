@@ -7,14 +7,6 @@ require 'Slim/Slim.php';
 
 $app = new \Slim\Slim();
 
-/*$app = new \Slim\Slim(array(
-    'log.enabled' => false
-));*/
-
-//$app = new \Slim\Slim();
-
-//$app->log->setEnabled(false);
-
 // Instantiate global user id from the db
 $user_id = NULL;
 
@@ -174,14 +166,6 @@ $app->post('/profile', 'authenticate', function () use ($app) {
 
 /**
  * Get usermultiworkout
- * output - multiworkout characteristics and array of singleworkout
- * method - GET
- * params - TODO
- * url - /usermultiworkout
- */
-
-/**
- * Get all usermultiworkout
  * output - array of multiworkout
  * method - GET
  * params - TODO sort-by: [date, popularity, featured, uploader popularity], range: [date, number of results]
@@ -277,6 +261,30 @@ $app->post('/profile', 'authenticate', function () use ($app) {
  * method - DELETE
  * params - TODO
  * url - /userlift
+ */
+
+//--------------------------------usermaxes
+
+/**
+ * Add usermaxes
+ * method - POST
+ * params - TODO userid
+ * url - /usermaxes
+ */
+
+/**
+ * Edit usermaxes
+ * method - PUT
+ * params - TODO userid
+ * url - /usermaxes
+ */
+
+/**
+ * Get usermaxes
+ * output - array of lifts containing maxes for different number of reps
+ * method - GET
+ * params - TODO userid
+ * url - /usermaxes
  */
 
 //--------------------------------lifts

@@ -1,6 +1,7 @@
 # Liftmo
 
-Check out the mobile site at http://m.liftmo.com ([Github](https://github.com/jiaweizhang/m.liftmo.com))
+Desktop site at http://liftmo.com 
+Mobile site at http://m.liftmo.com ([Github](https://github.com/jiaweizhang/m.liftmo.com))
 
 ## Features
 
@@ -12,6 +13,11 @@ Check out the mobile site at http://m.liftmo.com ([Github](https://github.com/ji
 * Graphical signup, login, profile updating
 * Email verification
 * Graphical lift tracking
+
+## Development
+
+* [Developer Guide](http://liftmo.com/dev)
+* [API and Database Schemas](http://liftmo.com/api)
 
 ## About
 

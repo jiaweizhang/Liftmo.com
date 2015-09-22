@@ -37,361 +37,133 @@
         <td>New user registration</td>
     </tr>
     <tr>
-        <td>/register</td>
-        <td>PUT</td>
-        <td>(email), [fname, lname, password, unit, city, state, country]</td>
-        <td>Update user info</td>
-    </tr>
-    <tr>
         <td>/login</td>
         <td>POST</td>
         <td>(email, password)</td>
         <td>User login</td>
     </tr>
     <tr>
+        <td>/check</td>
+        <td>POST</td>
+        <td>none</td>
+        <td>Api key check</td>
+    </tr>
+    <tr>
+        <td>/usermultiworkout</td>
+        <td>POST</td>
+        <td></td>
+        <td>Create usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usermultiworkout</td>
+        <td>GET</td>
+        <td></td>
+        <td>Get usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usermultiworkout</td>
+        <td>PUT</td>
+        <td></td>
+        <td>Edit usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usermultiworkout</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>Delete usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usersingleworkout</td>
+        <td>POST</td>
+        <td></td>
+        <td>Add usersingleworkout to usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usersingleworkout</td>
+        <td>GET</td>
+        <td></td>
+        <td>Get usersingleworkout within usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usersingleworkout</td>
+        <td>PUT</td>
+        <td></td>
+        <td>Edit usersingleworkout within usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/usersingleworkout</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>Delete usersingleworkout from usermultiworkout</td>
+    </tr>
+    <tr>
+        <td>/userliftgroup</td>
+        <td>POST</td>
+        <td></td>
+        <td>Add userliftgroup to user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/userliftgroup</td>
+        <td>PUT</td>
+        <td></td>
+        <td>Edit userliftgroup in user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/userliftgroup</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>Delete userliftgroup from user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/userlift</td>
+        <td>POST</td>
+        <td></td>
+        <td>Add userlift to userliftgroup within user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/userlift</td>
+        <td>PUT</td>
+        <td></td>
+        <td>Edit userlift within userliftgroup within user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/userlift</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>Delete userlift from userliftgroup within user singleworkout</td>
+    </tr>
+    <tr>
+        <td>/usermaxes</td>
+        <td>POST</td>
+        <td></td>
+        <td>Add usermaxes</td>
+    </tr>
+    <tr>
+        <td>/usermaxes</td>
+        <td>PUT</td>
+        <td></td>
+        <td>Edit usermaxes</td>
+    </tr>
+    <tr>
+        <td>/usermaxes</td>
+        <td>GET</td>
+        <td></td>
+        <td>Get usermaxes</td>
+    </tr>
+    <tr>
         <td>/lifts</td>
         <td>GET</td>
-        <td>none</td>
-        <td>Fetch all lifts</td>
+        <td></td>
+        <td>Get all lifts (including array of muscles)</td>
     </tr>
     <tr>
-        <td>/userlifts</td>
-        <td>POST</td>
-        <td>userid, liftid, reps, amt, [success]</td>
-        <td>Create new user lift</td>
-    </tr>
-    <tr>
-        <td>/userlifts</td>
+        <td>/muscles</td>
         <td>GET</td>
-        <td>(userid), [date range]</td>
-        <td>Get user lifts in a date range</td>
-    </tr>
-    <tr>
-        <td>/userlifts</td>
-        <td>PUT</td>
-        <td>(id), userid, liftid, reps, amt, [success]</td>
-        <td>Update user lift</td>
-    </tr>
-    <tr>
-        <td>/userlifts</td>
-        <td>DELETE</td>
-        <td>(id)</td>
-        <td>Remove user lift</td>
-    </tr>
-    <tr>
-        <td>/maxes</td>
-        <td>POST</td>
-        <td>(usersid, liftid, amt, reps)</td>
-        <td>Adds new max for a user</td>
-    </tr>
-    <tr>
-        <td>/maxes</td>
-        <td>GET</td>
-        <td>(userid)</td>
-        <td>Get all maxes for a user</td>
-    </tr>
-    <tr>
-        <td>/maxes</td>
-        <td>PUT</td>
-        <td>(usersid, liftid, amt, reps)</td>
-        <td>Edits incorrect max for a user</td>
+        <td></td>
+        <td>Get all muscles</td>
     </tr>
     </tbody>
 </table>
-<h2>Database Schema</h2>
-<h3>users</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td>int</td>
-        <td>20</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>fname</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>lname</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>email</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>passhash</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>apikey</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>status</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>createdate</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>unit</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>city</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>state</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>country</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<h3>lifts</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td>int</td>
-        <td>20</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>nickname</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>description</td>
-        <td>medium text</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>videourl</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>parentname</td>
-        <td>varchar</td>
-        <td>255</td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<h3>userlifts</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>userid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>liftid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>timestamp</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>success</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>reps</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<h3>maxes</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>userid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>liftid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>amt</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>timestamp</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>reps</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<h3>muscles</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>id</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>name</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>imageurl</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>nickname</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<h3>liftmuscles</h3>
-<table class="table table-hover table-bordered">
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>type</th>
-        <th>size</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>muscleid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>liftid</td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
+<h2>Database Schemas</h2>
 </body>
 </html>
