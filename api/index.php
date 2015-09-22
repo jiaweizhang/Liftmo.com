@@ -163,6 +163,142 @@ $app->post('/profile', 'authenticate', function () use ($app) {
     }
 });
 
+//-----------------------usermultiworkout
+
+/**
+ * Create usermultiworkout
+ * method - POST
+ * params - TODO
+ * url - /usermultiworkout
+ */
+
+/**
+ * Get usermultiworkout
+ * output - multiworkout characteristics and array of singleworkout
+ * method - GET
+ * params - TODO
+ * url - /usermultiworkout
+ */
+
+/**
+ * Get all usermultiworkout
+ * output - array of multiworkout
+ * method - GET
+ * params - TODO sort-by: [date, popularity, featured, uploader popularity], range: [date, number of results]
+ * url - /usermultiworkout
+ */
+
+/**
+ * Edit usermultiworkout
+ * method - PUT
+ * params - TODO
+ * url - /usermultiworkout
+ */
+
+/**
+ * Delete usermultiworkout
+ * method - DELETE
+ * params - TODO
+ * url - /usermultiworkout
+ */
+
+//---------------------------usersingleworkout
+
+/**
+ * Add usersingleworkout to usermultiworkout
+ * method - POST
+ * params - TODO
+ * url - /usersingleworkout
+ */
+
+/**
+ * Get usersingleworkout within usermultiworkout
+ * output - singleworkout characteristic >> array of liftgroup >> array of lifts
+ * method - GET
+ * params - TODO
+ * url - /usersingleworkout
+ */
+
+/**
+ * Edit usersingleworkout within usermultiworkout
+ * method - PUT
+ * params - TODO
+ * url - /usersingleworkout
+ */
+
+/**
+ * Delete usersingleworkout from usermultiworkout
+ * method - DELETE
+ * params - TODO
+ * url - /usersingleworkout
+ */
+
+//--------------------------userliftgroup
+
+/**
+ * Add userliftgroup to user singleworkout
+ * method - POST
+ * params - TODO
+ * url - /userliftgroup
+ */
+
+/**
+ * Edit userliftgroup in user singleworkout
+ * method - PUT
+ * params - TODO
+ * url - /userliftgroup
+ */
+
+/**
+ * Delete userliftgroup from user singleworkout
+ * method - DELETE
+ * params - TODO
+ * url - /userliftgroup
+ */
+
+//---------------------------userlift - TODO maybe not necessary
+
+/**
+ * Add userlift to userliftgroup within user singleworkout
+ * method - POST
+ * params - TODO
+ * url - /userlift
+ */
+
+/**
+ * Edit userlift within userliftgroup within user singleworkout
+ * method - PUT
+ * params - TODO
+ * url - /userlift
+ */
+
+/**
+ * Delete userlift from userliftgroup within user singleworkout
+ * method - DELETE
+ * params - TODO
+ * url - /userlift
+ */
+
+//--------------------------------lifts
+
+/**
+ * Get all lifts (including array of muscles)
+ * method - GET
+ * params - [none]
+ * url - /lifts
+ */
+
+//--------------------------------muscles
+
+/**
+ * Get all muscles
+ * method - GET
+ * params - [none]
+ * url - /muscles
+ */
+
+
+
 
 /**
  * Adding Middle Layer to authenticate every request
